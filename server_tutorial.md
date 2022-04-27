@@ -59,4 +59,29 @@ Solution: 99% of the reason is networking and not correctly portforward or firew
 
 ## Adding [vMenu](https://docs.vespura.com/vmenu/installation/)
 
+## Update the server with latest recommended build - [Update FiveM Server](https://forum.cfx.re/t/update-fivem-server/241474)
+- get your server version - type `version` in your server console, it should show something like this:
+
+        [                 cmd]  "version" is "FXServer-master v1.0.0.5402 linux"
+        [                 cmd]  default: "FXServer-master v1.0.0.5402 linux" - flags( )
+        [                 cmd]  type: string
+
+- your version is `5402`, open [this link](https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/) and check if there is new version
+
+### Approach 1 - with FTP
+0. Stop server   
+1. Delete existing files in `/FXServer/server` folder
+2. Download the latest artifact and extract it to your `/FXServer/server` folder
+3. Start server
+## Approach 2 - in Ubuntu
+0. Stop server  
+
+        su steam
+        cd ~/FXServer/
+        rm -rf server/*
+        cd server
+        wget https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/5402-810a639673d8da03fe4b1dc2b922c9c0265a542e/fx.tar.xz
+        tar xf fx.tar.xz
+
+1. Start server
 
