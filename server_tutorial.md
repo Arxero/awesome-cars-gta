@@ -53,9 +53,19 @@
 
         sv_enforceGameBuild 2545
 
+## Problems and solutions
+- Problem: `Server list query returned an error: System.Threading.Tasks.TaskCanceledException`
+  - Solution: 99% of the reason is networking and not correctly portforward or firewall setup
+- Teamviewr copy paste does not work from the windows machine
+        
+        sudo teamviewer --daemon restart
 
-Problem: `Server list query returned an error: System.Threading.Tasks.TaskCanceledException`
-Solution: 99% of the reason is networking and not correctly portforward or firewall setup
+- Update user in mysql
+
+        ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+
+
+
 
 ## Adding [vMenu](https://docs.vespura.com/vmenu/installation/)
 
@@ -73,15 +83,57 @@ Solution: 99% of the reason is networking and not correctly portforward or firew
 1. Delete existing files in `/FXServer/server` folder
 2. Download the latest artifact and extract it to your `/FXServer/server` folder
 3. Start server
-## Approach 2 - in Ubuntu
+### Approach 2 - in Ubuntu
 0. Stop server  
+[latest recommended build](https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/)
 
         su steam
         cd ~/FXServer/
         rm -rf server/*
         cd server
-        wget https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/5402-810a639673d8da03fe4b1dc2b922c9c0265a542e/fx.tar.xz
+        wget https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/5402-810a639673d8da03fe4b1dc2b922c9c0265a542e/fx.tar.xz / {latest recommended build}
         tar xf fx.tar.xz
 
 1. Start server
+
+## Install MySQL on Ubuntu
+Sources:
+[digitial ocean](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04) |
+[linode](https://www.linode.com/docs/guides/installing-and-configuring-mysql-on-ubuntu-2004/) | 
+[hevodata](https://hevodata.com/learn/installing-mysql-on-ubuntu-20-04/)
+### Installing
+    sudo apt update
+    sudo apt install mysql-server
+    sudo systemctl start mysql.service
+    mysql --version
+    sudo mysql_secure_installation
+
+Current version installed `mysql  Ver 8.0.28-0ubuntu0.20.04.3 for Linux on x86_64 ((Ubuntu))`
+
+### Configuring
+- when asked to set up the Validate Password Plugin, select `NO`
+- set a password for the MySQL root user
+
+From there, you can press Y and then ENTER to accept the defaults for all the subsequent questions. This will remove some anonymous users and the test database, disable remote root logins, and load these new rules so that MySQL immediately respects the changes you have made.
+
+### Creating a Dedicated MySQL User and Granting Privileges
+    sudo mysql
+    CREATE USER 'your_mysqluser'@'%' IDENTIFIED WITH caching_sha2_password BY 'your_password';
+    GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO 'your_mysqluser'@'%' WITH GRANT OPTION;
+    FLUSH PRIVILEGES;
+    exit
+
+### [Remote access](https://www.digitalocean.com/community/tutorials/how-to-allow-remote-access-to-mysql)
+To access MySQL remotely, ensure MySQL traffic is allowed through the ufw firewall. Add the following rule to open port 3306 on the firewall.
+   
+    sudo ufw allow mysql
+    sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+
+Change this line from `bind-address            = 127.0.0.1`  to `bind-address            = 0.0.0.0`
+
+    sudo systemctl restart mysql
+
+Also in the end don't forget to port forward MySQL deffault port (`3306`) in your router
+
+
 
