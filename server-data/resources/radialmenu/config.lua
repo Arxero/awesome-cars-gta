@@ -29,15 +29,15 @@ menuConfigs = {
                     navAngle = 270,                 -- Oritentation of wheel
                     minRadiusPercent = 0.3,         -- Minimum radius of wheel in percentage
                     maxRadiusPercent = 0.6,         -- Maximum radius of wheel in percentage
-                    labels = {"WHISTLE", "NO", "CHEER", "CLAP", "FOLDARMS", "YEAH"},
+                    labels = {"Whistle", "No", "Cheer", "Clap", "Foldarms", "Yeah"},
                     commands = {"e whistle", "e no", "e cheer", "e slowclap", "e foldarms", "e yeah"}
                 },
                 {
                     navAngle = 285,                 -- Oritentation of wheel
                     minRadiusPercent = 0.6,         -- Minimum radius of wheel in percentage
                     maxRadiusPercent = 0.9,         -- Maximum radius of wheel in percentage
-                    labels = {"SALUTE", "FINGER", "PEACE", "FACEPALM", "DAMN", "FAIL", "DEAD", "GANG1", "GANG2", "COP", "HOLSTER", "CROWDS"},
-                    commands = {"e salute", "e finger", "e peace", "e palm", "e damn", "e fail", "e dead", "e gang1", "e gang2", "e copidle", "e holster", "e copcrowd2"}
+                    labels = {"Salute", "Finger", "Peace", "Hostage", "Piggyback", "Carry", "Dance", "Airplane", "Kiss", "Sleep", "Sit", "Countdown"},
+                    commands = {"e salute", "e finger", "e peace", "takehostage", "piggyback", "carry", "e dance", "e airplane", "e blowkiss", "e bumsleep", "e sit", "e countdown"}
                 }
             }
         }
