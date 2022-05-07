@@ -1,4 +1,14 @@
+-- https://docs.fivem.net/docs/resources/baseevents/events/onPlayerDied/
 AddEventHandler('baseevents:onPlayerDied', function(killerType, deathCoords)
+    RespawnNear(deathCoords)
+end)
+
+-- https://docs.fivem.net/docs/resources/baseevents/events/onPlayerKilled/
+AddEventHandler('baseevents:onPlayerKilled', function(killerId, deathData)
+    RespawnNear(deathData.killerpos)
+end)
+
+function RespawnNear(deathCoords)
     local x, y, z = table.unpack(deathCoords)
     local radius = 200
     local newCoords = {
@@ -41,5 +51,4 @@ AddEventHandler('baseevents:onPlayerDied', function(killerType, deathCoords)
 
     exports.spawnmanager:setAutoSpawn(true)
     exports.spawnmanager:forceRespawn()
-end)
-
+end
